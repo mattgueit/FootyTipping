@@ -1,4 +1,8 @@
-using Microsoft.AspNetCore.ResponseCompression;
+using FootyTipping.Server.Authorization;
+using FootyTipping.Server.Data;
+using FootyTipping.Server.Helpers;
+using FootyTipping.Server.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -7,7 +11,33 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
+// Configure DbContext(s) for EF core using SQL Server
+builder.Services.AddDbContext<DataContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+// Configure AutoMapper with all profiles from this assembly
+builder.Services.AddAutoMapper(typeof(Program));
+
+// Configure strongly typed appsettings object
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+
+// Configure services for DI container
+builder.Services.AddScoped<IJwtUtilities, JwtUtilities>();
+builder.Services.AddScoped<IUserService, UserService>();
+
+
 var app = builder.Build();
+
+// Migrate any database changes on startup (including initial db creation)
+using (var scope = app.Services.CreateScope())
+{
+    var dataContext = scope.ServiceProvider.GetRequiredService<DataContext>();
+    dataContext.Database.Migrate();
+}
+
+// Use custom middleware
+app.UseMiddleware<ErrorHandlerMiddleware>();
+app.UseMiddleware<JwtMiddleware>();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
