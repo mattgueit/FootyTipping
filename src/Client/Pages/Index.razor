@@ -2,8 +2,48 @@
 
 <PageTitle>Index</PageTitle>
 
-<h1>Hello, world!</h1>
 
-Welcome to your new app.
+<div class="container pt-3 pb-5"> @*padding-top-3 padding-bottom-5*@
+    <div class="row justify-content-between">
+        <div class="col-8">
+            <h1>Welcome, {username goes here}!</h1>
+        </div>
+        <div class="col-2">
+            <NavLink class="nav-link" href="account">
+                <span class="oi oi-person" aria-hidden="true"/>
+                <span>account</span>
+            </NavLink>
+        </div>
+        <div class="col-2">
+            <NavLink class="nav-link" href="logout">
+                <span class="oi oi-account-logout" aria-hidden="true"/> logout
+            </NavLink>
+        </div>
+    </div>
+</div>
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+
+<div class="container pb-5"> @*padding-bottom-5*@
+    <div class="row justify-content-between">
+        <div class="col-6">
+            <h1>&#10240;</h1>
+            <h4>Leaderboard</h4>
+        </div>
+
+        <div class="col-4">
+                <span style="font-size:36pt">96</span>
+                <span style="font-size:18pt">&nbsp;points</span>
+            <h4 class="text-center">Tipping</h4>
+        </div>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row justify-content-around">
+        <div class="col-8 text-center">
+            <h2>Ladder</h2>
+        </div>
+    </div>
+
+</div>
+
