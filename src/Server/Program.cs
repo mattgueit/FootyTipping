@@ -19,7 +19,7 @@ builder.Services.AddDbContext<DataContext>(options =>
 builder.Services.AddAutoMapper(typeof(Program));
 
 // Configure strongly typed appsettings object
-builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+builder.Services.Configure<SecuritySettings>(builder.Configuration.GetSection("SecuritySettings"));
 
 // Configure services for DI container
 builder.Services.AddScoped<IJwtUtilities, JwtUtilities>();

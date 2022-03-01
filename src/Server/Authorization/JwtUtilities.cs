@@ -17,17 +17,17 @@ namespace FootyTipping.Server.Authorization
 
     public class JwtUtilities : IJwtUtilities
     {
-        private readonly AppSettings _appSettings;
+        private readonly SecuritySettings _securitySettings;
 
-        public JwtUtilities(IOptions<AppSettings> appSettings)
+        public JwtUtilities(IOptions<SecuritySettings> securitySettings)
         {
-            _appSettings = appSettings.Value;
+            _securitySettings = securitySettings.Value;
         }
 
         public string GenerateToken(User user)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var key = Encoding.ASCII.GetBytes(_securitySettings.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor()
             {
                 Subject = new ClaimsIdentity(new[] {new Claim("id", user.Id.ToString())}),
@@ -46,7 +46,7 @@ namespace FootyTipping.Server.Authorization
 
 
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
+            var key = Encoding.ASCII.GetBytes(_securitySettings.Secret);
             try
             {
                 tokenHandler.ValidateToken(token, new TokenValidationParameters()
