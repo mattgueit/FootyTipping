@@ -10,8 +10,7 @@ namespace FootyTipping.Server.Controllers
     [Route("[controller]")]
     public class UsersController : ControllerBase
     {
-        // TODO: also readonly here?
-        private IUserService _userService;
+        private readonly IUserService _userService;
 
         public UsersController(IUserService userService)
         {

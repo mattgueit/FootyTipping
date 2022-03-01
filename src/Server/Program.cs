@@ -22,6 +22,7 @@ builder.Services.AddAutoMapper(typeof(Program));
 builder.Services.Configure<SecuritySettings>(builder.Configuration.GetSection("SecuritySettings"));
 
 // Configure services for DI container
+builder.Services.AddScoped<IHashingUtilities, HashingUtilities>();
 builder.Services.AddScoped<IJwtUtilities, JwtUtilities>();
 builder.Services.AddScoped<IUserService, UserService>();
 

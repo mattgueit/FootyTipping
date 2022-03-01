@@ -7,12 +7,15 @@ namespace FootyTipping.Server.Data
     {
         protected readonly IConfiguration _configuration;
 
-        public DataContext(IConfiguration configuration)
+        public DataContext() { }
+
+        public DataContext(IConfiguration configuration, DbContextOptions<DataContext> options) 
+            : base(options)
         {
             _configuration = configuration;
         }
 
-        public DbSet<User> Users { get; set; }
+        public virtual DbSet<User> Users { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {

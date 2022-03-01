@@ -18,14 +18,15 @@ namespace FootyTipping.Server.Services
 
     public class UserService : IUserService
     {
-        // TODO: check if these can be readonly? surely right?
-        private DataContext _dataContext;
-        private IJwtUtilities _jwtUtilities;
+        private readonly DataContext _dataContext;
+        private readonly IHashingUtilities _hashingUtilities;
+        private readonly IJwtUtilities _jwtUtilities;
         private readonly IMapper _mapper;
 
-        public UserService(DataContext dataContext, IJwtUtilities jwtUtilities, IMapper mapper)
+        public UserService(DataContext dataContext, IHashingUtilities hashingUtilities, IJwtUtilities jwtUtilities, IMapper mapper)
         {
             _dataContext = dataContext;
+            _hashingUtilities = hashingUtilities;
             _jwtUtilities = jwtUtilities;
             _mapper = mapper;
         }
@@ -36,7 +37,7 @@ namespace FootyTipping.Server.Services
             var user = _dataContext.Users.SingleOrDefault(x => x.Username == request.Username);
 
             // Validate
-            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.PasswordHash))
+            if (user == null || !_hashingUtilities.Verify(request.Password, user.PasswordHash))
                 throw new Exception("Username or password is incorrect.");
 
             var response = _mapper.Map<AuthenticateResponse>(user);
