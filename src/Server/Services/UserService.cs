@@ -47,7 +47,7 @@ namespace FootyTipping.Server.Services
 
         public void Delete(int id)
         {
-            var user = getUser(id);
+            var user = GetUser(id);
             _dataContext.Users.Remove(user);
             _dataContext.SaveChanges();
         }
@@ -59,7 +59,7 @@ namespace FootyTipping.Server.Services
 
         public User GetById(int id)
         {
-            return getUser(id);
+            return GetUser(id);
         }
 
         public void Register(RegisterRequest request)
@@ -72,7 +72,7 @@ namespace FootyTipping.Server.Services
             var user = _mapper.Map<User>(request);
 
             // Hash password if entered
-            user.PasswordHash = BCrypt.Net.BCrypt.HashPassword(request.Password);
+            user.PasswordHash = _hashingUtilities.HashPassword(request.Password);
 
             // Save user to DB
             _dataContext.Users.Add(user);
@@ -81,7 +81,7 @@ namespace FootyTipping.Server.Services
 
         public void Update(int id, UpdateRequest request)
         {
-            var user = getUser(id);
+            var user = GetUser(id);
 
             // Validate
             if (request.Username != user.Username && _dataContext.Users.Any(x => x.Username == request.Username))
@@ -97,7 +97,7 @@ namespace FootyTipping.Server.Services
             _dataContext.SaveChanges();
         }
 
-        private User getUser(int id)
+        private User GetUser(int id)
         {
             var user = _dataContext.Users.Find(id);
             if (user == null)
