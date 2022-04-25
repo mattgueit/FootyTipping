@@ -1,13 +1,35 @@
 ﻿@inherits LayoutComponentBase
+@inject IAccountService AccountService
 
-<div class="page">
-@*    <div class="sidebar">
-        <NavMenu />
-    </div>*@
-
-    <main>
-        <article class="content px-4">
-            @Body
-        </article>
-    </main>
+@if (LoggedIn)
+{
+<div class="container pt-3 pb-5"> @*padding-top-3 padding-bottom-5*@
+    <div class="row justify-content-between">
+        <div class="col-8">
+            <h1>Welcome, @AccountService.User.FirstName!</h1>
+        </div>
+        <div class="col-2">
+            <NavLink class="nav-link" href="account">
+                <span class="oi oi-person" aria-hidden="true"/>
+                <span>account</span>
+            </NavLink>
+        </div>
+        <div class="col-2">
+            <NavLink class="nav-link" href="account/logout">
+                <span class="oi oi-account-logout" aria-hidden="true"/> logout
+            </NavLink>
+        </div>
+    </div>
 </div>
+}
+
+<div class="app-container">
+    @Body
+</div>
+
+@code {
+    public bool LoggedIn
+    {
+        get {return AccountService.User != null; }
+    }
+}

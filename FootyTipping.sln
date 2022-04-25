@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootyTipping.Client", "src\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootyTipping.Shared", "src\Shared\FootyTipping.Shared.csproj", "{935D23B6-5767-4C79-BA3B-CA573D7C592C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FootyTipping.Server.Tests", "test\FootyTipping.Server.Tests\FootyTipping.Server.Tests.csproj", "{05711C5C-273D-412B-AFB2-0FFEDE2AD03F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FootyTipping.Server.Tests", "test\FootyTipping.Server.Tests\FootyTipping.Server.Tests.csproj", "{05711C5C-273D-412B-AFB2-0FFEDE2AD03F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F0DC286B-2A9F-4CDA-9AC8-2F69E5EDFA67}"
 EndProject
