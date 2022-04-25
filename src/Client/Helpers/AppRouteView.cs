@@ -16,12 +16,6 @@ namespace FootyTipping.Client.Helpers
 
         protected override void Render(RenderTreeBuilder builder)
         {
-            if (NavigationManager == null)
-                throw new ArgumentNullException(nameof(NavigationManager));
-
-            if (AccountService == null)
-                throw new ArgumentException(nameof(AccountService));
-
             var authorize = Attribute.GetCustomAttribute(RouteData.PageType, typeof(AuthorizeAttribute)) != null;
             if (authorize && AccountService.User == null)
             {
